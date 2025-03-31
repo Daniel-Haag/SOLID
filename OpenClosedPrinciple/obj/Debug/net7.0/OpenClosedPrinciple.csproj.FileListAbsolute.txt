@@ -1,0 +1,15 @@
+C:\Projetos\SOLID\OpenClosedPrinciple\obj\Debug\net7.0\OpenClosedPrinciple.csproj.AssemblyReference.cache
+C:\Projetos\SOLID\OpenClosedPrinciple\obj\Debug\net7.0\OpenClosedPrinciple.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projetos\SOLID\OpenClosedPrinciple\obj\Debug\net7.0\OpenClosedPrinciple.AssemblyInfoInputs.cache
+C:\Projetos\SOLID\OpenClosedPrinciple\obj\Debug\net7.0\OpenClosedPrinciple.AssemblyInfo.cs
+C:\Projetos\SOLID\OpenClosedPrinciple\obj\Debug\net7.0\OpenClosedPrinciple.csproj.CoreCompileInputs.cache
+C:\Projetos\SOLID\OpenClosedPrinciple\bin\Debug\net7.0\OpenClosedPrinciple.exe
+C:\Projetos\SOLID\OpenClosedPrinciple\bin\Debug\net7.0\OpenClosedPrinciple.deps.json
+C:\Projetos\SOLID\OpenClosedPrinciple\bin\Debug\net7.0\OpenClosedPrinciple.runtimeconfig.json
+C:\Projetos\SOLID\OpenClosedPrinciple\bin\Debug\net7.0\OpenClosedPrinciple.dll
+C:\Projetos\SOLID\OpenClosedPrinciple\bin\Debug\net7.0\OpenClosedPrinciple.pdb
+C:\Projetos\SOLID\OpenClosedPrinciple\obj\Debug\net7.0\OpenClosedPrinciple.dll
+C:\Projetos\SOLID\OpenClosedPrinciple\obj\Debug\net7.0\refint\OpenClosedPrinciple.dll
+C:\Projetos\SOLID\OpenClosedPrinciple\obj\Debug\net7.0\OpenClosedPrinciple.pdb
+C:\Projetos\SOLID\OpenClosedPrinciple\obj\Debug\net7.0\OpenClosedPrinciple.genruntimeconfig.cache
+C:\Projetos\SOLID\OpenClosedPrinciple\obj\Debug\net7.0\ref\OpenClosedPrinciple.dll
