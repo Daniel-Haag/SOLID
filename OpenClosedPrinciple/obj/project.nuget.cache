@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Ejg1MhxxnZ8S3zuBLVXfxX6KP77aEOIxtwsC/usrEBrAqT9SUUM4A+/mmxHMQw77f1no6gFblqbbAFMST44RKQ==",
+  "dgSpecHash": "V692BA70i90=",
   "success": true,
   "projectFilePath": "C:\\Projetos\\SOLID\\OpenClosedPrinciple\\OpenClosedPrinciple.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\danni\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.20\\microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\danni\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.20\\microsoft.windowsdesktop.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\danni\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.20\\microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\danni\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.20\\microsoft.netcore.app.host.win-x64.7.0.20.nupkg.sha512"
+  ],
   "logs": []
 }
