@@ -1,5 +1,3 @@
-using System;
-using LojaOCP.Enums;
 using LojaOCP.Interfaces;
 
 namespace LojaOCP
@@ -13,6 +11,7 @@ namespace LojaOCP
         //Abstraí a lógica variável para aplicar o padrão Strategy e respeitar OCP
         private ICalculadoraDescontoPedido _calculadoraDescontoPedido;
         private ICalculadoraFretePedido _calculadoraFretePedido;
+        
         public CalculadoraPedido(
             ICalculadoraDescontoPedido calculadoraDescontoPedido,
             ICalculadoraFretePedido calculadoraFretePedido)
@@ -24,10 +23,14 @@ namespace LojaOCP
         public ResultadoPedido CalcularValorFinal(Pedido pedido)
         {
             var resultadoPedido = _calculadoraDescontoPedido.CalcularValorFinal(pedido);
+            resultadoPedido = _calculadoraFretePedido.CalcularFretePedido(resultadoPedido);
             
+            // Cálculo do valor final
+            resultadoPedido.ValorFinal = pedido.ValorProdutos - resultadoPedido.Desconto + resultadoPedido.Frete;
+            return resultadoPedido;
         }
         
-        //Código original que viola OCP:
+        //Código original abaixo que viola OCP:
         
         // public ResultadoPedido CalcularValorFinal(Pedido pedido)
         // {

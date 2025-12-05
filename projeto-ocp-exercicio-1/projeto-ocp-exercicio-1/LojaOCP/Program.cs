@@ -37,9 +37,20 @@ namespace LojaOCP
                 DistanciaKm = 5
             };
 
-            ImprimirResumo(new CalculadoraPedido(new DescontoClienteComum(), new CalculoFreteNormal()), pedido1);
-            ImprimirResumo(new CalculadoraPedido(new DescontoClienteVip()), pedido2);
-            ImprimirResumo(new CalculadoraPedido(new DescontoClienteFuncionario()), pedido3);
+            ImprimirResumo(new CalculadoraPedido(
+                new DescontoClienteComum(),
+                new CalculoFreteNormal()),
+                pedido1);
+            
+            ImprimirResumo(new CalculadoraPedido(
+                new DescontoClienteVip(),
+                new CalculoFreteExpresso()),
+                pedido2);
+            
+            ImprimirResumo(new CalculadoraPedido(
+                new DescontoClienteFuncionario(),
+                new CalculoRetiradaLoja()),
+                pedido3);
 
             Console.WriteLine("\nPressione qualquer tecla para sair...");
             Console.ReadKey();
