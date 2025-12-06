@@ -1,6 +1,6 @@
 namespace LojaOCP
 {
-    public class ResultadoPedido : Pedido
+    public class ResultadoPedido 
     {
         public decimal ValorProdutos { get; set; }
         public decimal Desconto { get; set; }

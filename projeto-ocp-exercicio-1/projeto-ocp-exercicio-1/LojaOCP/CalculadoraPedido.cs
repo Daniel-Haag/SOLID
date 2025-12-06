@@ -23,7 +23,7 @@ namespace LojaOCP
         public ResultadoPedido CalcularValorFinal(Pedido pedido)
         {
             var resultadoPedido = _calculadoraDescontoPedido.CalcularValorFinal(pedido);
-            resultadoPedido = _calculadoraFretePedido.CalcularFretePedido(resultadoPedido);
+            resultadoPedido = _calculadoraFretePedido.CalcularFretePedido(resultadoPedido, pedido);
             
             // Cálculo do valor final
             resultadoPedido.ValorFinal = pedido.ValorProdutos - resultadoPedido.Desconto + resultadoPedido.Frete;
