@@ -3,7 +3,7 @@ using OCP1.Interfaces;
 using OCP1.Models;
 using System;
 
-namespace OCP1;
+namespace OCP1.Services;
 
 /// <summary>
 /// Corrigindo violação do OCP - Open/Closed Principle

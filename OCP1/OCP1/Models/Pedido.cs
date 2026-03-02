@@ -11,6 +11,7 @@ namespace OCP1.Models
     {
         public Guid Id { get; set; }
         public decimal ValorProdutos { get; set; }
+        public TipoEntrega TipoEntrega { get; set; }
         public decimal DistanciaKm { get; set; }
     }
 }

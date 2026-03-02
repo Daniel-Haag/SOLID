@@ -14,26 +14,27 @@ internal class Program
 
         var calculadora = new CalculadoraFreteService();
 
-        Testar(calculadora, new CalculaFreteNormalService(), 12);
-        Testar(calculadora, new CalculaFreteExpressoService(), 12);
-        Testar(calculadora, new CalculaFreteRetiradaLojaService(), 12);
-        Testar(calculadora, new CalculaFreteAgendadoService(), 12);
+        Testar(calculadora, new CalculaFreteNormalService(), TipoEntrega.Normal, 12);
+        Testar(calculadora, new CalculaFreteExpressoService(), TipoEntrega.Expressa, 12);
+        Testar(calculadora, new CalculaFreteRetiradaLojaService(), TipoEntrega.RetiradaLoja, 12);
+        Testar(calculadora, new CalculaFreteAgendadoService(), TipoEntrega.Agendada, 12);
 
         Console.WriteLine("\nPressione qualquer tecla para sair.");
         Console.ReadKey();
     }
 
-    static void Testar(CalculadoraFreteService calculadora, ICalculaFreteService calculaFreteService, decimal km)
+    static void Testar(CalculadoraFreteService calculadora, ICalculaFreteService calculaFreteService, TipoEntrega tipoEntrega, decimal km)
     {
         var pedido = new Pedido
         {
             Id = Guid.NewGuid(),
             DistanciaKm = km,
-            ValorProdutos = 150m
+            ValorProdutos = 150m,
+            TipoEntrega = tipoEntrega
         };
 
         var frete = calculadora.Calcular(pedido, calculaFreteService);
 
-        Console.WriteLine($"Tipo: {calculaFreteService.GetType().Name,-12} | Km: {km,5} | Frete: {frete,8:C}");
+        Console.WriteLine($"Tipo: {pedido.TipoEntrega,-12} | Km: {km,5} | Frete: {frete,8:C}");
     }
 }
