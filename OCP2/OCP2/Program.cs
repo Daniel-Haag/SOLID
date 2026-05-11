@@ -1,4 +1,5 @@
 using OCP2.Enums;
+using OCP2.Interfaces;
 using OCP2.Models;
 using OCP2.Services;
 
@@ -8,22 +9,36 @@ internal class Program
 {
     static void Main()
     {
-        Console.WriteLine("==== Projeto OCP2 (violando OCP) ====");
+        Console.WriteLine("==== Projeto OCP2 (respeitando OCP) ====");
 
         var relatorio = CriarRelatorio();
-        var exportador = new ExportadorRelatorioService();
+        var exportador = CriarExportadorPrincipal();
 
         Testar(exportador, relatorio, FormatoExportacao.Csv);
         Testar(exportador, relatorio, FormatoExportacao.Json);
         Testar(exportador, relatorio, FormatoExportacao.Xml);
         Testar(exportador, relatorio, FormatoExportacao.Html);
 
-        Console.WriteLine("Sua missao: adicionar um novo formato sem alterar a classe ExportadorRelatorioService.");
+        Console.WriteLine("\nNovo formato? Crie uma nova classe de exportacao e registre-a na composicao principal.");
+
         if (!Console.IsInputRedirected)
         {
             Console.WriteLine("\nPressione qualquer tecla para sair.");
             Console.ReadKey();
         }
+    }
+
+    static ExportadorRelatorioService CriarExportadorPrincipal()
+    {
+        IExportadorRelatorioService[] exportadores =
+        [
+            new ExportarRelatorioCsvService(),
+            new ExportarRelatorioJsonService(),
+            new ExportarRelatorioXmlService(),
+            new ExportarRelatorioHtmlService()
+        ];
+
+        return new ExportadorRelatorioService(exportadores);
     }
 
     static void Testar(ExportadorRelatorioService exportador, RelatorioDeVendas relatorio, FormatoExportacao formato)

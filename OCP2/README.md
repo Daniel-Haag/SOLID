@@ -1,4 +1,4 @@
-# Projeto OCP2 - Versao que VIOLA OCP (Open/Closed Principle)
+# Projeto OCP2 - Versao Refatorada com OCP
 
 ## Cenario
 Sistema simples que exporta um **relatorio de vendas** em formatos diferentes:
@@ -8,20 +8,17 @@ Sistema simples que exporta um **relatorio de vendas** em formatos diferentes:
 - `Xml`
 - `Html`
 
-## Onde esta a violacao de OCP?
-A classe `ExportadorRelatorioService` usa `switch` para decidir como exportar.
-Sempre que surgir um novo formato (ex.: `Markdown` ou `Pdf`), voce tera que **MODIFICAR** o metodo `Exportar`.
+## Como ficou
+- Cada formato tem sua propria classe e implementa `IExportadorRelatorioService`
+- A classe `ExportadorRelatorioService` recebe todas as implementacoes por construtor
+- O fluxo principal pede a exportacao por `FormatoExportacao`, sem conhecer a logica concreta de cada formato
 
-## Sua missao
-Refatorar para deixar o projeto **aberto para extensao e fechado para modificacao**.
+## Como estender
+Para adicionar um novo formato:
 
-Sugestao:
-- Criar uma abstracao como `IExportadorRelatorio`
-- Ter uma classe por formato
-- Fazer o fluxo principal depender da abstracao, nao do `switch`
-
-## Desafio extra
-Adicionar um novo formato, como `Markdown`, sem mexer na classe principal de exportacao.
+1. Crie uma nova classe que implemente `IExportadorRelatorioService`
+2. Informe o `Formato` suportado por essa classe
+3. Registre a nova implementacao na composicao principal do programa
 
 ## Como rodar
 ```bash
