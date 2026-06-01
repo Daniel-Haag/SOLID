@@ -1,3 +1,5 @@
+using OCP3.Enums;
+
 namespace OCP3.Models;
 
 public class ResultadoPagamento
