@@ -1,4 +1,4 @@
-# Projeto OCP3 - Versao que VIOLA OCP (Open/Closed Principle)
+# Projeto OCP3 - Versao Refatorada com OCP
 
 ## Cenario
 Sistema simples que processa pagamentos em formas diferentes:
@@ -7,6 +7,7 @@ Sistema simples que processa pagamentos em formas diferentes:
 - `CartaoCredito`
 - `Boleto`
 - `CarteiraDigital`
+- `CartaoDebito`
 
 Cada forma de pagamento possui regra propria de:
 
@@ -14,20 +15,20 @@ Cada forma de pagamento possui regra propria de:
 - valor final
 - mensagem de confirmacao
 
-## Onde esta a violacao de OCP?
-A classe `ProcessadorPagamentoService` usa `switch` para decidir como processar cada pagamento.
-Sempre que surgir uma nova forma (ex.: `Debito` ou `Criptomoeda`), voce tera que **MODIFICAR** o metodo `Processar`.
+## Como ficou
+- Cada forma de pagamento tem sua propria classe e implementa `IProcessadorPagamento`
+- A classe `ProcessadorPagamentoService` orquestra o fluxo principal
+- A `ProcessadorFactory` resolve o processador correto com base em `pagamento.FormaPagamento`
+- O registro dos processadores e automatico por varredura da assembly
 
-## Sua missao
-Refatorar para deixar o projeto **aberto para extensao e fechado para modificacao**.
+## Como estender
+Para adicionar uma nova forma de pagamento:
 
-Sugestao:
-- criar uma abstracao como `IProcessadorPagamento`
-- ter uma classe por forma de pagamento
-- fazer o fluxo principal depender da abstracao, nao do `switch`
+1. Adicione o novo valor no enum `FormaPagamento`
+2. Crie uma classe que implemente `IProcessadorPagamento`
+3. Informe a propriedade `FormaPagamento` correspondente
 
-## Desafio extra
-Adicionar uma nova forma de pagamento, como `Debito`, sem mexer na classe principal de processamento.
+Se a nova classe estiver na mesma assembly, ela sera registrada automaticamente.
 
 ## Como rodar
 ```bash

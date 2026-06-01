@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+using OCP3.DI;
 using OCP3.Enums;
 using OCP3.Models;
 using OCP3.Services;
@@ -8,16 +10,22 @@ internal class Program
 {
     static void Main()
     {
-        Console.WriteLine("==== Projeto OCP3 (violando OCP) ====");
+        var services = new ServiceCollection();
+        services.AddProcessamentoPagamentos();
 
-        var processador = new ProcessadorPagamentoService();
+        using var serviceProvider = services.BuildServiceProvider();
 
-        Testar(processador, CriarPagamentoPix());
-        Testar(processador, CriarPagamentoCartaoCredito());
-        Testar(processador, CriarPagamentoBoleto());
-        Testar(processador, CriarPagamentoCarteiraDigital());
+        Console.WriteLine("==== Projeto OCP3 (respeitando OCP) ====");
 
-        Console.WriteLine("\nSua missao: adicionar uma nova forma de pagamento sem modificar a classe ProcessadorPagamentoService.");
+        var processador = serviceProvider.GetRequiredService<ProcessadorPagamentoService>();
+
+        foreach (var pagamento in CriarPagamentosDeExemplo())
+        {
+            Testar(processador, pagamento);
+        }
+
+        Console.WriteLine("\nNovo formato? Crie uma nova classe que implemente IProcessadorPagamento.");
+        Console.WriteLine("Se ela estiver na mesma assembly, o registro sera automatico.");
 
         if (!Console.IsInputRedirected)
         {
@@ -37,51 +45,12 @@ internal class Program
         Console.WriteLine($"Mensagem: {resultado.Mensagem}");
     }
 
-    static Pagamento CriarPagamentoPix()
+    static IEnumerable<Pagamento> CriarPagamentosDeExemplo()
     {
-        return new Pagamento
-        {
-            Id = Guid.NewGuid(),
-            Cliente = "Ana",
-            ValorOriginal = 250.00m,
-            FormaPagamento = FormaPagamento.Pix,
-            Parcelas = 1
-        };
-    }
-
-    static Pagamento CriarPagamentoCartaoCredito()
-    {
-        return new Pagamento
-        {
-            Id = Guid.NewGuid(),
-            Cliente = "Bruno",
-            ValorOriginal = 820.50m,
-            FormaPagamento = FormaPagamento.CartaoCredito,
-            Parcelas = 6
-        };
-    }
-
-    static Pagamento CriarPagamentoBoleto()
-    {
-        return new Pagamento
-        {
-            Id = Guid.NewGuid(),
-            Cliente = "Carla",
-            ValorOriginal = 415.90m,
-            FormaPagamento = FormaPagamento.Boleto,
-            Parcelas = 1
-        };
-    }
-
-    static Pagamento CriarPagamentoCarteiraDigital()
-    {
-        return new Pagamento
-        {
-            Id = Guid.NewGuid(),
-            Cliente = "Diego",
-            ValorOriginal = 99.90m,
-            FormaPagamento = FormaPagamento.CarteiraDigital,
-            Parcelas = 1
-        };
+        yield return GeradorPagamentoService.CriarPagamento(FormaPagamento.Pix);
+        yield return GeradorPagamentoService.CriarPagamento(FormaPagamento.CartaoCredito);
+        yield return GeradorPagamentoService.CriarPagamento(FormaPagamento.Boleto);
+        yield return GeradorPagamentoService.CriarPagamento(FormaPagamento.CarteiraDigital);
+        yield return GeradorPagamentoService.CriarPagamento(FormaPagamento.CartaoDebito);
     }
 }
