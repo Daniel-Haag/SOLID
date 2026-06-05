@@ -17,6 +17,9 @@ internal class Program
 
         Console.WriteLine("==== Projeto OCP3 (respeitando OCP) ====");
 
+        //Processador de pagamentos é resolvido via DI,
+        //e o registro é feito automaticamente para todas
+        //as implementações de IProcessadorPagamento
         var processador = serviceProvider.GetRequiredService<ProcessadorPagamentoService>();
 
         foreach (var pagamento in CriarPagamentosDeExemplo())
