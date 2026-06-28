@@ -1,4 +1,6 @@
-using LSP1.Models;
+using LSP1.Interfaces;
+using LSP1.Models.Bases;
+using LSP1.Models.Derivadas;
 using LSP1.Services;
 
 namespace LSP1;
@@ -7,7 +9,7 @@ internal class Program
 {
     static void Main()
     {
-        Console.WriteLine("==== Projeto LSP1 (violando LSP) ====");
+        Console.WriteLine("==== Projeto LSP1 (respeitando LSP) ====");
 
         var caixaEletronico = new CaixaEletronicoService();
 
@@ -15,9 +17,9 @@ internal class Program
         var contaInvestimento = new ContaInvestimento("Bruno", 1000m);
 
         Testar(caixaEletronico, contaCorrente, 200m);
-        Testar(caixaEletronico, contaInvestimento, 200m);
+        ExibirContaSemSaque(contaInvestimento);
 
-        Console.WriteLine("\nSua missao: refatorar a hierarquia para que a substituicao nao quebre o fluxo do caixa eletronico.");
+        Console.WriteLine("\nMissao cumprida: cada tipo de conta implementa apenas os contratos que consegue cumprir.");
 
         if (!Console.IsInputRedirected)
         {
@@ -26,20 +28,18 @@ internal class Program
         }
     }
 
-    static void Testar(CaixaEletronicoService caixaEletronico, ContaBancaria conta, decimal valor)
+    static void Testar<TConta>(CaixaEletronicoService caixaEletronico, TConta conta, decimal valor)
+        where TConta : ContaBancaria, IContaBancariaSaque
     {
         Console.WriteLine($"\nConta: {conta.GetType().Name} | Titular: {conta.Titular} | Saldo inicial: {conta.Saldo:C}");
+        var mensagem = caixaEletronico.RealizarSaque(conta, valor);
+        Console.WriteLine(mensagem);
+        Console.WriteLine($"Saldo final: {conta.Saldo:C}");
+    }
 
-        try
-        {
-            var mensagem = caixaEletronico.RealizarSaque(conta, valor);
-            Console.WriteLine(mensagem);
-            Console.WriteLine($"Saldo final: {conta.Saldo:C}");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Falha inesperada: {ex.Message}");
-            Console.WriteLine("A classe filha nao conseguiu substituir a classe base sem quebrar o comportamento esperado.");
-        }
+    static void ExibirContaSemSaque(ContaBancaria conta)
+    {
+        Console.WriteLine($"\nConta: {conta.GetType().Name} | Titular: {conta.Titular} | Saldo inicial: {conta.Saldo:C}");
+        Console.WriteLine("Esta conta nao participa do fluxo de saque do caixa eletronico.");
     }
 }
