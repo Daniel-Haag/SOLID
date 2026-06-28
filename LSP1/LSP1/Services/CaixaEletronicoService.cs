@@ -1,10 +1,12 @@
-using LSP1.Models;
+using LSP1.Interfaces;
+using LSP1.Models.Bases;
 
 namespace LSP1.Services;
 
 public class CaixaEletronicoService
 {
-    public string RealizarSaque(ContaBancaria conta, decimal valor)
+    public string RealizarSaque<TConta>(TConta conta, decimal valor)
+        where TConta : ContaBancaria, IContaBancariaSaque
     {
         var saqueRealizado = conta.Sacar(valor);
 
